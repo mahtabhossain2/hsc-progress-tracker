@@ -1,0 +1,13 @@
+{
+  "name": "hsc-routine-tracker",
+  "version": "1.0.0",
+  "description": "HSC 28 (Academic to Admission) 391-day study routine progress tracker, backed by Supabase.",
+  "private": true,
+  "scripts": {
+    "seed": "node seed.js",
+    "seed:force": "node seed.js --force"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0"
+  }
+}
