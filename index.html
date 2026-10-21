@@ -225,6 +225,7 @@ label.field-label:first-of-type{margin-top:0;}
 .list-link:hover{background:var(--surface);}
 @media (prefers-reduced-motion: reduce){ *{animation-duration:.001ms !important; transition-duration:.001ms !important;} }
 </style>
+<link rel="stylesheet" href="ca26/ca26.css">
 </head>
 <body>
 
@@ -261,6 +262,8 @@ label.field-label:first-of-type{margin-top:0;}
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="ca26/ca26-core.js"></script>
+<script src="ca26/ca26-ui.js"></script>
 <script>
 const SUPABASE_URL = "https://dyxsjcwdvukdubjfraht.supabase.co";
 const SUPABASE_KEY = "sb_publishable_YytVTLnLPzQS51gAtB7PHQ_KBqocNtr";
@@ -578,7 +581,7 @@ function renderRoute(){
     else if (top === "phases") parts[1] ? renderPhaseDetail(decodeURIComponent(parts[1])) : renderPhases();
     else if (top === "subjects") parts[1] ? renderSubjectDetail(decodeURIComponent(parts[1])) : renderSubjects();
     else if (top === "reports") renderReports(parts[1], parts[2]);
-    else if (top === "editor") renderEditor();
+    else if (top === "editor") renderEditor(parts[1]);
     else renderDashboard();
   } catch(e){
     console.error(e);
@@ -1152,9 +1155,12 @@ function renderReports(subview, param){
   if (subview === "week" && param){
     return renderWeekReportEditor(parseInt(param));
   }
+  if (subview === "ca26"){
+    return renderCa26Gallery();
+  }
 
   el("pageRoot").innerHTML = `
-    <div class="page-head"><div><h1>Reports</h1><div class="page-sub">প্রতিদিনের ও সাপ্তাহিক রিপোর্ট</div></div></div>
+    <div class="page-head"><div><h1>Reports</h1><div class="page-sub">প্রতিদিনের ও সাপ্তাহিক রিপোর্ট</div></div><button class="btn btn-outline btn-sm" id="openCa26Btn" onclick="navTo('reports/ca26')">CA26</button></div>
     <div class="search-box" style="margin-bottom:14px;">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input type="number" min="1" max="${TOTAL_DAYS}" id="reportDayJump" placeholder="দিন নম্বর দিয়ে খুঁজুন (1-391)">
@@ -1278,12 +1284,13 @@ function renderWeekReportEditor(week){
 
 let editorFilters = { q:"", phase:"", day:"", subject:"" };
 
-function renderEditor(){
+function renderEditor(sub){
+  if (sub === "report") return renderCa26Editor();
   const phases = phasesInOrder();
   el("pageRoot").innerHTML = `
     <div class="page-head">
       <div><h1>Editor</h1><div class="page-sub">টাস্ক যুক্ত, এডিট বা ডিলিট করো</div></div>
-      <button class="btn btn-primary" id="editorAddBtn">+ নতুন টাস্ক</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn btn-outline" id="editorReportBtn" onclick="navTo('editor/report')">Edit Report</button><button class="btn btn-primary" id="editorAddBtn">+ নতুন টাস্ক</button></div>
     </div>
     <div class="grid-2" style="margin-bottom:10px;">
       <div class="search-box">
@@ -1418,6 +1425,19 @@ async function deleteTaskModal(task){
   ALL_TASKS = ALL_TASKS.filter(t => String(t.id) !== String(task.id));
   closeTaskModal();
   renderRoute();
+}
+
+/* ---- CA26 gallery + Edit Report (implemented in ca26/ca26-core.js and ca26/ca26-ui.js) ---- */
+function ca26Missing(backTo, label){
+  el("pageRoot").innerHTML = `<div class="error-box"><h4>CA26 files not found</h4><p>Upload the <code>ca26/</code> folder (ca26.css, ca26-core.js, ca26-ui.js, original/) next to index.html, then reload.</p></div><button class="btn btn-outline btn-sm" onclick="navTo('${backTo}')">${label}</button>`;
+}
+function renderCa26Gallery(){
+  if (!window.CA26UI || !window.CA26Core) return ca26Missing("reports", "← Reports");
+  CA26UI.renderGallery({ container: el("pageRoot"), cfg: { url: SUPABASE_URL, key: SUPABASE_KEY }, onBack: () => navTo("reports") });
+}
+function renderCa26Editor(){
+  if (!window.CA26UI || !window.CA26Core) return ca26Missing("editor", "← Editor");
+  CA26UI.renderEditor({ container: el("pageRoot"), cfg: { url: SUPABASE_URL, key: SUPABASE_KEY }, onBack: () => navTo("editor") });
 }
 
 el("modalOverlay").addEventListener("click", (ev) => { if (ev.target.id === "modalOverlay") closeTaskModal(); });
