@@ -50,8 +50,8 @@
 
   async function loadManifest() {
     if (S.manifest) return S.manifest;
-    var r = await fetch(baseUrl('ca26/original/manifest.json'), { cache: 'no-cache' });
-    if (!r.ok) throw new Error('Could not load ca26/original/manifest.json (HTTP ' + r.status + ')');
+    var r = await fetch(baseUrl('manifest.json'), { cache: 'no-cache' });
+    if (!r.ok) throw new Error('Could not load manifest.json (HTTP ' + r.status + ')');
     S.manifest = await r.json();
     return S.manifest;
   }
@@ -59,7 +59,7 @@
   async function staticData() {
     var m = await loadManifest();
     return {
-      images: m.images.map(function (i) { return { url: baseUrl('ca26/original/' + i.file), caption: i.caption }; }),
+      images: m.images.map(function (i) { return { url: baseUrl(i.file), caption: i.caption }; }),
       comments: m.comments
     };
   }
@@ -468,7 +468,7 @@
     var tI = m ? m.images.length : 5, tC = m ? m.comments.length : 2, dis = ED.busy ? ' disabled' : '';
     var r = ED.importResult, v = ED.verifyResult;
     return '<div class="card"><h3 style="font-size:14px;margin-bottom:6px;">Import the original CA26 content</h3>' +
-      '<p class="small muted" style="margin:0 0 10px;">Copies the original ' + tI + ' photos and ' + tC + ' comments (shipped in <code>ca26/original/</code>) into Supabase. ' +
+      '<p class="small muted" style="margin:0 0 10px;">Copies the original ' + tI + ' photos and ' + tC + ' comments (shipped in the repository root) into Supabase. ' +
       '<b>Safe to run repeatedly:</b> it only adds items that are missing, never creates duplicates and never overwrites your edits. ' +
       'If you deleted an original on purpose, running this again will restore it.</p>' +
       '<div class="chip-row" style="margin-bottom:12px;"><span class="badge ' + (nImg >= tI ? 'badge-green' : 'badge-orange') + '">Original photos: ' + nImg + ' / ' + tI + '</span>' +
@@ -629,7 +629,7 @@
       case 'import-run': return run(async function () {
         var manifest = await loadManifest();
         ED.importResult = await Core.importOriginals(ED.client, manifest, async function (name) {
-          var r = await fetch(baseUrl('ca26/original/' + name), { cache: 'no-cache' });
+          var r = await fetch(baseUrl(name), { cache: 'no-cache' });
           if (!r.ok) throw new Error('Could not load ' + name + ' (HTTP ' + r.status + ')');
           return await r.blob();
         });
