@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "images": [
+    {
+      "source_key": "original-image-1",
+      "file": "ca26-01.jpg",
+      "caption": "Chat Screenshot • 01 · 16/10/2026",
+      "mime": "image/jpeg",
+      "bytes": 243123,
+      "sha256": "c92d82d93ed98de19bff82dab9ade085f717b4d5b60dbca0989e62868ee3c7f6",
+      "width": 672,
+      "height": 720,
+      "sort_order": 1
+    },
+    {
+      "source_key": "original-image-2",
+      "file": "ca26-02.jpg",
+      "caption": "Chat Screenshot • 02 · 16/10/2026",
+      "mime": "image/jpeg",
+      "bytes": 248850,
+      "sha256": "21c921dfec0c81a9035c306f03a4710405c8f5455e48cc4a2dfce1f46a857d31",
+      "width": 672,
+      "height": 779,
+      "sort_order": 2
+    },
+    {
+      "source_key": "original-image-3",
+      "file": "ca26-03.jpg",
+      "caption": "Facebook Profile • 03",
+      "mime": "image/jpeg",
+      "bytes": 173283,
+      "sha256": "809542eae64121358cd556b75fdd24b03c3ed4600a20d1e1732cbf08c693a42c",
+      "width": 720,
+      "height": 1600,
+      "sort_order": 3
+    },
+    {
+      "source_key": "original-image-4",
+      "file": "ca26-04.jpg",
+      "caption": "Facebook Profile • 04",
+      "mime": "image/jpeg",
+      "bytes": 302250,
+      "sha256": "e5b7720a3d857e4fe2da7372ab6785c9c0f6cd2d2af6e8db671471cd15c39a47",
+      "width": 720,
+      "height": 1600,
+      "sort_order": 4
+    },
+    {
+      "source_key": "original-image-5",
+      "file": "ca26-05.jpg",
+      "caption": "Instagram Profile • 05",
+      "mime": "image/jpeg",
+      "bytes": 219118,
+      "sha256": "48eb25ba72966fa215e1197ddb572a2bcf8b0595a936d176a80c5f9093392e59",
+      "width": 720,
+      "height": 1600,
+      "sort_order": 5
+    }
+  ],
+  "comments": [
+    {
+      "source_key": "original-comment-1",
+      "author": "ওমর ফারুক (FGC)",
+      "body": "চশমাওয়ালা বুদ্ধিজীবী! সারা রাত পাবজি খেলতে খেলতে এখন চশমা লাগায়",
+      "category": "FEATURED COMMENT",
+      "avatar_text": "OF",
+      "note": "",
+      "comment_date": "2026-10-15",
+      "sort_order": 1,
+      "original_date_text": "15/10/2026",
+      "original_quote_class": "quote"
+    },
+    {
+      "source_key": "original-comment-2",
+      "author": "Rafi to Minhaz",
+      "body": "Rafi to minhaz: amader school er roll 2 o to ndc te chance pay nai",
+      "category": "THE NDC CONVERSATION",
+      "avatar_text": "RF",
+      "note": "Some conversations never get old.",
+      "comment_date": "2026-10-03",
+      "sort_order": 2,
+      "original_date_text": "3/10/2026",
+      "original_quote_class": "quote quote-en"
+    }
+  ],
+  "static": {
+    "title": "Some Unforgettable Memories",
+    "brand_name": "THE ARCHIVE",
+    "brand_sub": "A collection of memories",
+    "date_pill": "16/10/2026",
+    "photo_badge": "✦ MEMORY SNAPSHOT",
+    "gallery_title": "The Gallery",
+    "comments_title": "Comments &amp; Quotes",
+    "bottom_note": "A LITTLE NOSTALGIA · <span>16/10/2026</span>",
+    "autoplay_ms": 4000
+  }
+}
